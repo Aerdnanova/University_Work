@@ -1,0 +1,234 @@
+//This program will read a text file, sorts the contents by alphabetical order, by username
+//then saves it back to the file
+//Andrea Bonato
+//104760390
+//I acknowledge that this is my own work and did not recive any unauthorized help with it
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <ctype.h>
+#include <strings.h>
+#include <string.h>
+
+//This struct will generate a simple tweet, used tro create a linked list
+struct tweet{
+	
+	int id; //Store the unique id number of the tweet
+	char created_at[51]; //Sores the UTC time and date
+	char text[141];	//Stores the tweet text up to 140 characters
+	char user[21];	//Stores the username of the person who posted the tweet
+	struct tweet *ptrNext; //Self referential pointer
+};
+
+//Create an alias for the struct
+typedef struct tweet Tweet;
+
+//Set both list pointers to NULL;
+Tweet *ptrFirst = NULL;	//Points to first object in the list
+Tweet *ptrLast = NULL;	//Points to second object in the list
+
+void Save(Tweet *ptrF);
+void Sort(Tweet *ptrF);
+void Load(Tweet *ptrF);
+void reset(Tweet *ptrF);
+
+//Main function, all the functions will be called here, this main is only made to test the functions
+void main()
+{	
+	Load(ptrFirst);	//Call to load from file
+	Sort(ptrFirst);	//Sort the linked list
+	Save(ptrFirst);	//Save the linked lsit to a file
+	reset(ptrFirst);	//Free everything
+	ptrLast = NULL;	//Set last and first to NULL
+	ptrFirst = NULL;	
+}
+//This function will take in a new pointer, pointing to a struct object, and add it to the end of the linked list
+//The input of this function is the new pointer array, the one that will be added to the end of the list
+//Output will be void
+void AddToList(Tweet *ptrNew)
+{
+	if(ptrNew == NULL)	//The new node is empty, no need to add it to the list and return void
+	{
+		return;
+	}
+
+	if(ptrFirst == NULL)	//If the list is empty, add it to the very begining, and also equal it to the ptrLast, since in this case ptrLast = ptrFirst
+	{
+		ptrFirst = ptrNew;
+		ptrLast = ptrNew;
+	}else{
+		
+		ptrLast = ptrFirst;	//use the last value as a holding place for the ptrFirst value
+
+		while(ptrLast->ptrNext != NULL)
+		{
+			ptrLast = ptrLast->ptrNext;	//While the value after ptrLast isn't null, go to the next pointer location until you reach the end of the list
+		}
+		ptrLast->ptrNext = ptrNew;	//Then afterwards, hav the next value be equal to the new value that is added to the end of the list
+	
+	}
+
+
+
+}
+//This function will cycle recursively from the value before NULL and free each value without losing the location of the pointes before
+//The input of this function is the point that represents the pointer pointing to the first object in the list
+//The output of this function is void
+void reset(Tweet *ptrF)
+{
+	if(ptrF == NULL)
+	{
+		return;	//Base case
+	}else{
+	
+		reset(ptrF->ptrNext);	//Recursive step
+		free(ptrF);	//Free each step
+	}
+}
+//This function will take information from a linked list and overwrite to the file called tweets.txt
+//The input of this function will be the pointer pointing to the first element in the linked list
+//The output of the function is void
+void Save(Tweet *ptrF)
+{
+	Tweet *ptrCurrent = NULL; //Set an holder struct pointer, this will be used to cycle through the list without changing what ptrF is pointing to
+	int counter = 0;	//This will help decide what to print so that the \n can be avoided at the end of the file
+	FILE *fp;	//File pointer
+	
+	ptrCurrent = ptrF;	//Allow the holder struct pointer be equal to the begining of the linked list
+	
+	fp = fopen("tweets.txt", "w"); //Open the file tweets.txt, overwriting the previous file
+	
+	if(fp == NULL)	//If the file pointer is NULL, exit out of the program because it is an error
+	{
+		printf("Error!");
+		exit(-1);
+	}
+
+	while(ptrCurrent != NULL)	//While ptrCurrent isn't pointing to a NULL value
+	{	
+		if(counter == 0){
+
+			fprintf(fp,"%d\n%s\n%s\n%s", ptrCurrent->id, ptrCurrent->created_at, ptrCurrent->user, ptrCurrent->text);
+			counter = 1;	//Print this first, to avoid the newline at the beginning
+			
+			ptrCurrent = ptrCurrent->ptrNext;	//Let the ptrCurrent value equal the next value in the list
+		}else{
+			fprintf(fp,"\n%d\n%s\n%s\n%s", ptrCurrent->id, ptrCurrent->created_at, ptrCurrent->user, ptrCurrent->text);
+			ptrCurrent = ptrCurrent->ptrNext;	//Print this after the first one, so it can avoid the newline at the end, then let the ptrCurrent value equal the next
+			
+		}
+	}
+
+	fclose(fp);	//Close the file
+}
+//This function will open a file called tweets.txt, and read/scan the information into the linked list
+//The function will hae an input of a pointer that is pointing to the location of the first object in the linked list
+//The ouput of the function would be void
+void Load(Tweet *ptrF)
+{
+
+	Tweet *ptrCurrent = NULL;	//This will declare a temp variable to use to cycle through the linked list without losing the location of ptrF
+	FILE *fp;		//File pointer
+
+	fp = fopen("tweets.txt", "r");	//Open file tweets.txt to read the file without deleting it
+	
+	reset(ptrFirst);	//Reset the current list so that it is empty
+
+	if(fp == NULL)	//If the file pointer is null, then there was some error in the opening of the file, or it does not exist
+	{	
+		printf("Error!");
+		exit(-1);	//Exit out of the program
+	}
+
+	while(!feof(fp))	//While it is not the end of the file
+	{	
+		ptrCurrent = (struct tweet *)(malloc(sizeof(struct tweet)));	//Set the current value with a specific size
+		
+		//This value will scan all the information from the file
+		fscanf(fp,"%d\n%[^\n]s\n", &ptrCurrent->id, ptrCurrent->created_at);	
+		fscanf(fp," %[^\n]s", ptrCurrent->user);
+		getc(fp);	//Take into consideration a newline
+		fscanf(fp, "%[^\n]s",ptrCurrent->text);
+		
+		ptrCurrent->ptrNext = NULL;	//Set the value after to be NULL so that the list has an end point
+
+		if(strlen(ptrCurrent->text) != 0)	//If the string length of the text is not 0, meaning text exists, then add it to the list
+		{
+			AddToList(ptrCurrent);	//Call the function to add it to the list
+
+		}else{
+			
+			free(ptrCurrent);	//Free the spot if there is no text to add to the list
+		}
+		ptrCurrent = ptrCurrent->ptrNext;	//Let the current ptrCurrent value, equal to the next
+	}
+
+	fclose(fp);	//Close the file
+
+
+}
+//This function will take in a linked list and sort the contents of the list in alphabetical order by their username.
+//The input of the function is the pointer pointing to the first object in the list
+//The output of the function is void
+void Sort(Tweet *ptrF)
+{
+	int counter  = 0;	//This counter will be used to cycle through and set a counter to sort the linked list
+	Tweet *ptrCurrent;	//This will set a holder pointer to be set to the first element, thus to avoid moving the ptrF
+	char created[51];	//Holds the date
+	char words[141];	//Holds the text
+	char username[21];	//Holds the username
+	int hold;		//Holds the id
+	Tweet *temp = NULL;	//Sets a temporary struct pointer array to NULL
+
+	ptrCurrent = ptrF;	//Set the ptrCurrent to the ptrF
+
+	if(ptrCurrent == NULL)	//If the current value is null, then  it is empty and just return void
+	{
+		return;		
+	}
+
+	if(ptrFirst == NULL)	//Empty list
+	{
+		ptrFirst = ptrCurrent;	//Just set both the first and last values to the ptrCurrent value, since in this case ptrFirst = ptrLast
+		ptrLast = ptrCurrent;
+	}
+
+	do{
+		
+		counter=0;	//Set counter to 0
+		
+	
+		while(ptrCurrent->ptrNext != temp)	//While the next value does not equal the temporary value
+		{
+			if(strcasecmp(ptrCurrent->user, (ptrCurrent->ptrNext)->user) >= 0)	//If the value that strcase cmp returns is above or equal to 0, then swap the information
+			{	
+				
+				//This all swaps the information
+				hold = (ptrCurrent->ptrNext)->id;
+				(ptrCurrent->ptrNext)->id = ptrCurrent->id;
+				ptrCurrent->id = hold;
+				
+				strcpy(created, (ptrCurrent->ptrNext)->created_at);
+				strcpy((ptrCurrent->ptrNext)->created_at, ptrCurrent->created_at);
+				strcpy(ptrCurrent->created_at, created);
+
+				strcpy(words, (ptrCurrent->ptrNext)->text);
+				strcpy((ptrCurrent->ptrNext)->text, ptrCurrent->text);
+				strcpy(ptrCurrent->text, words);
+		
+				strcpy(username, (ptrCurrent->ptrNext)->user);
+				strcpy((ptrCurrent->ptrNext)->user, ptrCurrent->user);
+				strcpy(ptrCurrent->user, username);
+				counter = 1;	//Set counter to 1 for every swap
+			}
+
+			ptrCurrent = ptrCurrent->ptrNext;	//Go to the next value
+		}
+
+		temp = ptrCurrent;	//Let the temp value equal the last ptrCurrent value
+		
+		ptrCurrent= ptrF;	//Reset ptrCurrent to the begining of the list
+	
+	}while(counter != 0);	//Do all of this until the counter no longer is 1
+}
