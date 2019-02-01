@@ -1,0 +1,434 @@
+//Andrea Bonato
+//104760390
+//Assignment 2: 2D Array Manipulation
+//"I acknowledge that this is my own work and did not recieve any unauthorized help with it"
+
+#define COL 20	//Define the columns for the 2d array
+#define ROW 20	//Defines the rows for the 2d array
+
+#include<stdio.h>
+#include<stdlib.h>//Includes the time functions
+#include<time.h>//Used for srand and time_t
+
+//Parameters
+void PopulateArray2DUnique(int A[][COL], unsigned int rowsize, unsigned int colsize, int min, int max);
+void DisplayArray2D(int A[][COL], unsigned int rowsize, unsigned int colsize);
+int FindLargest(int A[][COL], unsigned int rowsize, unsigned int colsize);
+int FindColSum(int A[][COL], unsigned int rowsize, unsigned int colsize, unsigned int col_to_sum);
+int Sort2DArray(int A[][COL], unsigned int rowsize, unsigned int colsize);
+int CopyArray2D(int A[][COL], int B[][COL], unsigned int rowsize, unsigned int colsize);
+int CopyArray2DSpiral(int A[][COL], int B[][COL], unsigned int rowsize, unsigned int colsize);
+
+
+void main(){	
+
+	int A[ROW][COL]; //Initialize array
+	int B[ROW][COL];
+	int C[ROW][COL];
+	unsigned int rowsize,  colsize; //User can enter their own row and col size
+	int max = 99, min = 1; //User entered values, to make it more personal for the user
+	int temp, choice = 0; //Holds a value for the max and min vaklues
+	time_t tm;	//Declare time
+	int col_to_sum = 0;	//This is to calculate the total sum for the column number it equals to.
+	int returned;	//Returned value to  know if the function is successdful
+	srand(time(&tm));	//For random values in rand()
+	
+	printf("Enter a row size and a column size (column  row): ");	//Collect any row and column size
+	scanf("%d%d" , &colsize, &rowsize);
+
+	printf("\nTesting an array of size: %d x %d\n", rowsize, colsize);	//Declares the row and col lengths
+
+	printf("Populating Array with unique random integers between %d and %d\n" , min, max);	//Declares the range
+	
+	printf("DisplayArray2D:\n");	
+
+	PopulateArray2DUnique(A, rowsize, colsize, min, max);	//Populates an array with unique values
+
+	DisplayArray2D(A, rowsize, colsize);	//Calls function to display the array
+
+	printf("FindLargest: %d\n" , FindLargest(A, rowsize, colsize));	//Finds the largest value in the array
+
+	printf("FindColSum of col %d: %d\n", col_to_sum, FindColSum(A, rowsize, colsize, col_to_sum));	//Finds the sum of the column col_to_sum
+
+	printf("Sort2DArray followed by DisplayArray2D: \n");
+	
+	returned = Sort2DArray(A, rowsize, colsize);	//Sorts the array..
+
+	if(returned == -1){	//If the sort returns a -1, the sort was unsuccessful
+		
+		printf("Unsuccessful sort\n");
+
+	}else{
+		DisplayArray2D(A, rowsize, colsize);	//However, if it returns 0, it will call the function to print the  aray
+	}
+
+	printf("CopyArray2D from A to B, then Display B: \n");
+	returned = CopyArray2D(A, B, rowsize, colsize);	//This will call a function to copy array A into an arbitrary array B.
+
+	if(returned == -1){	//If the copy array function returns a -1, that means the copy was unsuccessful
+
+		printf("Unsucessful copy\n");
+
+	}else{
+
+		DisplayArray2D(B, rowsize, colsize);	//If it returns a 0, then the program will call the function to display the array istelf 
+
+	}
+
+	printf("CopyArray2DSpiral from A to B, the Display B: \n");
+
+	for(int i = 0; i <rowsize; i++){
+		for(int k = 0; k < colsize; k++){	
+			C[i][k] = 0;	//Declares every  element within the array to be 0, necessary for the copy2dspiral funcntion
+		}
+	}
+
+	returned = CopyArray2DSpiral(A, C, rowsize, colsize);
+
+	if(returned == -1){
+
+		printf("Unsuccessful sort\n");
+	}else{
+
+		DisplayArray2D(C, rowsize, colsize);
+	}
+	
+}
+					
+//The function of this function will fill the 2d array of size rowsize x colsize with unique random integers between the max and min range inputted
+//Input will be the array with the column initialized with onto the max value COL,  the unsigned int row size/column size, and the max and min values
+//Output  will be void.
+void PopulateArray2DUnique(int A[][COL], unsigned int rowsize, unsigned int colsize, int min, int max){
+
+	int temp[400] = {0}, temporary, counter = 0; //Temporary array to help to find out if the digits are dupliated
+	
+	if((max - min) < rowsize*colsize){	//If the numbers valible are less than the number of element
+
+		printf("Not enough elements to fill array");	//When there is not enough elements within array that can be filled with the total values in between max and min
+		exit(-1);	//Exit out of the function
+	}
+
+	for(int i = 0; i < (rowsize*colsize); i++){
+		
+		counter = 0;	//Counter to help with
+
+		temporary = rand()%(max - min + 1) + min;	//Set the temporary number to equak the random value
+
+
+		for(int k = 0; k < i; k++){	//This loop  will help determine if the values are duplicated
+			
+			if(temp[k] == temporary){	//If any value in the array temp are equal to the temporary random value...
+				
+				counter++;	//Add one to the counter
+			}
+		}
+
+		if(counter == 0){	//After the loop is done, if the counter = 0, then you can initialize the value into array
+			
+			temp[i] = temporary;
+
+		}else{
+			
+			i--;	//If the counteris more than 0, then go back one and try again.
+		}
+	}
+
+	counter = 0;	//Initialize counter to 0 to reuse for the
+
+	for(int i = 0; i < rowsize; i++){
+		for(int k = 0; k < colsize; k++){
+			
+			A[i][k] = temp[counter];	//Decalre every value in the array
+			counter++;	//Increment counter to avoid another loop
+
+		}
+	}
+}
+
+
+
+
+//This function will display the contents of a 2D array of size rowsize x colsize in a table format.
+//Input is the intger array with the declared col max and min, and the unsiged integers: the rowsize and the column size
+//The output is void, it will not return anything
+void DisplayArray2D(int A[][COL], unsigned int rowsize, unsigned int colsize){
+
+	for(int i = 0; i < rowsize; i++){ //For every element in the row
+	
+		for(int k = 0; k < colsize; k++){	//For every element in the columns
+		
+			printf("%2d ", A[i][k]);	//Print the value
+		}
+	
+		printf("\n"); //Print
+	
+	}
+}
+//Given a 2d array, A of size rowsize x colsize, it will find the largest value and return it
+//Input will be the integer array with the colunm initialize, the rowsize and the column size as unisgned integers
+//Output will be the largest value as an integer
+int FindLargest(int A[][COL], unsigned int rowsize, unsigned int colsize){
+
+	int largest_value = 0;	//Initializes the largest value to be compared with the array value later on
+
+	for(int i = 0; i < rowsize; i++){	//For every row element
+	
+		for(int k = 0; k < colsize; k++){	//For every column size
+		
+			if(A[i][k] > largest_value){	//If the value of the array is larger than the largest value...	
+				
+				largest_value = A[i][k];	//Re-initialize the largest_value
+			}
+		}
+	}
+
+	return largest_value;	//Return the largest value
+}
+
+//This function will calculate the sum of a given column col of a 2d array of size rowsize and colsize.
+//input will be the integer array, unsigned int rowsize/colsize, and the unsigned int col_to_sum value representing the inputteed column number by the input
+//Output will be the sum, returned as an integer
+int FindColSum(int A[][COL], unsigned int rowsize, unsigned int colsize, unsigned int col_to_sum){
+
+	int sum = 0;	//Initializes sum to 0 so that it can be used for amth equations
+
+	for(int i = 0; i < rowsize; i++){	//For every element in the row
+		
+		sum += A[i][col_to_sum];
+	}
+
+	return sum; //Retrun the sum as an integer
+}
+//This is a function that sorts a 2D array of size row * column in ascending order.
+//The input is the integer array, and the unsigned integer row and column sizes
+//The output would be an integer, -1 being an unsuccessful and 0 being a successful swap
+
+int Sort2DArray(int A[][COL], unsigned int rowsize, unsigned int colsize){
+	
+	int swap, count = 1;	//Set counters and placeholder variables
+		
+	while(count > 0){ //When the count is bigger than 0...
+		
+		count = 0;	//Reinitialize the count to 0
+		
+		for(int i = 0; i < rowsize; i++){ //This will run through every element in the column
+			
+			for(int k = 0; k < colsize; k++){	//This will run through every element in every row per column
+			
+				if( i == rowsize - 1 && k == colsize - 1){ 
+
+				}else if(k == colsize -1){	//If the value for every column is equal the the number o the last column...
+					
+					if(A[i][k] > A[i + 1][0]){	//Check to see if the current element is greater than the next one. If it is:
+					
+					/*This will switch the two values. This will check to see the begining values are greater than the other ones*/
+					
+						swap = A[i][k];
+						A[i][k] =A[i + 1][0];
+						A[i + 1][0] = swap;
+						count +=1;
+					}
+					
+				}else{
+					
+					//If you are not working with the last values...
+					
+					if(A[i][k] > A[i][k + 1]){
+						
+						//This will simply switch the locations of the elements
+						
+						swap = A[i][k];
+						A[i][k] =A[i][k+1];
+						A[i][k+1] = swap;
+						count += 1;
+					} 
+				}
+			}
+		}
+	}
+	
+	for(int i = 0; i < rowsize; i++){ //Check to see if it is 
+		for(int  k = 1; k < colsize; k++){
+			if(A[i][k - 1] <= A[i][k]){
+				return 0;	//If the array value successfully was sorted
+			}else{
+			
+				return -1;	//Unsucessful sort
+			}
+		}
+	} 
+}
+//This function will copy the conents of an array into another array of the same size such that the contents of B would be exactly the contents of A.
+//Input would be the integer array A, which is full, the empty integer array B, and the unsigned integers rowsize and colsize
+//The ourput would be 0 if it successfully copied into the second array
+int CopyArray2D(int A[][COL], int B[][COL], unsigned int rowsize, unsigned int colsize){
+
+	int counter = 0;
+
+	for(int i = 0; i < rowsize; i++){
+		for(int k = 0; k < colsize; k++){
+			B[i][k] = A[i][k];	//For every element in the row and column, let the array array be initialized to it
+		}
+	}
+
+	for(int i =0; i< rowsize; i++){
+		for(int k =0; k < colsize; k ++){
+			if(B[i][k] == A[i][k]){
+				counter += 1;	//If every element is officially equal, add a counter
+			}
+		}
+	}
+
+	if(counter == (rowsize*colsize)){
+		return 0;	//If the counter is equal to the number of elements, return 0 for successful
+	}else{
+		return -1;	//Unsuccessful equal
+	}
+}
+/*This function will copy the contents of array A into array B of the same column and row size, except, they will be in a clockwise spiral sorted order.
+ However, it is assumed that before this function, every element in array B is declared to be 0. If it is not, the function will not work properly
+ Input would be  the array A, the empty array B. the unsigned int row anc column size
+ The output would be 0 if it successfully a loop, and -1 if it an unsuccessful sort*/
+ 
+int CopyArray2DSpiral(int A[][COL], int B[][COL], unsigned int rowsize, unsigned int colsize){
+	
+	char direction = 'R';	//Initial direction will always be right.
+
+	unsigned int rowA = 0, colA = 0, rowB = 0, colB = 0; //Row and column vzariables for array A and array B
+	
+	if(rowsize > 20 || colsize > 20){	//Can't have a value above 20 for each side row and column
+		return -1;	//Return if unsuccessful
+	}
+
+	while(rowA < rowsize && colA < colsize){	//This loop will stop when the rowA value and colA values are larger than the inputted row and column sizes.
+
+	switch(direction){	//Switch direction
+				
+		case 'R': //Going right
+					
+				if(colB == colsize){	//If the value of colB is equal to the total colsize, then....
+					colB--;	//Column for array B will be decremented
+					direction = 'D'; //Change direction
+
+				}else if(B[rowB][colB] != 0){	//If the value in the array already has a number indexed, then change the direction
+						
+					colB--;	//Move back a column in B
+					direction = 'D';	//Change direction
+				}else{
+					B[rowB][colB] = A[rowA][colA];	//Initialize
+					
+					if(B[rowB][colB] != A[rowA][colA]){	//If the initialization was not succesful, return -1
+						
+						return -1;
+					}
+
+					colA++;	//Move to the next element in array A
+					colB++;	//Move to the next element location in B
+
+					
+					if(colA == colsize){	//when the value of colA is equal to the 
+						colA = 0;
+						rowA++;	//Next value in the sorted array A
+					}
+				}
+				
+		break;
+		case 'D':	//Going down
+		
+				rowB++;	//Increase the value of row B
+
+				if(rowB == rowsize){	//If the value of rowB is equal to the max rowsize...
+					rowB--;	//Decrement the value
+					direction = 'L';	//Change the direction
+
+				}else if(B[rowB][colB] != 0){	//If the value at rowB and colB already exists, then..	
+					
+					rowB--;	//Decrement rowB
+					direction = 'L';	//Change direction
+
+				}else{
+						
+					B[rowB][colB] = A[rowA][colA];
+
+					if(B[rowB][colB] !=  A[rowA][colA]){	//If these do not equal, then initialization is unsuccessful, then it will return -1
+						
+						return -1;
+					}
+					
+					colA++;	//Columns for A will increment to go to the next value in arrayA
+
+					if(colA == colsize){	//If the value of the column for A equaled to the max column size...	
+						colA = 0;	//ColA will now equal 0
+						rowA++;		//RowA will be incremented to allow the array to be enter the next row
+					}	
+				}
+
+				
+
+		break;
+		case 'L':	//Sorting Left
+
+	
+				colB--;	//Decrement the column in the array B
+
+				if(colB == - 1){	//If the value for the column in array B equals to -1, then..
+					colB++;		//Go to the next column indexed
+					direction = 'U';	//Change direction
+
+				}else if(B[rowB][colB] != 0){	//If there is already a value at this index...
+					colB++;		//Go to the next column indexed
+					direction = 'U';	//Change direction
+				}else{
+					B[rowB][colB] = A[rowA][colA];	//Initiaize the next vaule
+					
+					if(B[rowB][colB] != A[rowA][colA]){ //If they do not equal, return 1 for an unsuccessful sort
+						return -1;
+					}
+
+					colA++;	//Go to the next column column in A
+
+					if(colA == colsize){	//If the colA is equal to the colsize...
+						colA = 0;	//Then the value of coA will be equal to 0, goint to the ffrist column
+						rowA++;		//Then one row down.
+					}
+				}
+				
+		break;
+		case 'U':	//Sorting up
+			
+				rowB--;	//Go one row up in B
+				
+				if(rowB == -1){	//If the value of rowB is -1 ...
+					rowB++;	
+					direction = 'R';
+				
+				}else if(B[rowB][colB] != 0){
+					rowB++;
+					colB++;
+					direction = 'R';
+					
+				}else{
+				
+					B[rowB][colB] = A[rowA][colA];
+					
+					if(B[rowB][colB] != A[rowA][colA]){	//If sort is unsuccessful, return -1
+						return -1;
+					}
+
+					colA++;	//Go to the next column by incrementing colA
+
+					if(colA == colsize){	//If the column surpasses the max colsize...
+						colA = 0;	//colA will not equal 0, and go back to the initial colunm
+						rowA++;		//RowA will be incremented to go to the next row
+					}
+				}
+				
+		break;
+			
+		}
+			
+	}
+	
+	return 0;	//Return 0 if successful
+	
+}
