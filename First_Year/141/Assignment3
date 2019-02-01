@@ -1,0 +1,271 @@
+//Andrea Bonato
+//104760390
+//March 21, 2017
+//Assignment 3
+//This assignment will create our ow simple twitter
+//"I acknowledge that this is my own work and did not recive any unauthoried help with it"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <strings.h>
+#include <string.h>
+#define _GNU_SOURCE
+
+char *strcasestr(const char *haystack, const char *needle);
+
+//Create a tweet
+
+struct simple_tweet{
+	
+	int id; //Uniquely defines the simple tweet
+	char created_at[51]; //UTC time and date
+	char text[141]; //Allow up to 140 characters
+	char user[21]; //The user name of the peron who posted the tweet.
+	
+
+};
+
+//Prototypes:
+void create_tweet(struct simple_tweet *user, int counter);
+void Search_tweet(struct simple_tweet *user, int counter);
+void Display_Tweets(struct simple_tweet *user, int counter);
+void Save_tweets(struct simple_tweet *user, int counter);
+int Load_tweets(struct simple_tweet *user, int counter);
+
+void main()
+{	
+	char username[21];	//Set a character array to store the username entered by the user, with a max of 100 letters
+	int menu_choice;	//Get menu choice
+	struct simple_tweet user[141];	//Declare the simple_tweet to allow everything to be put into a struct
+	time_t tm = time(NULL);	//Declares the time to start from the begining
+	int counter = 0;	//Counts the number of tweets
+	int counter2 = 0;
+
+	printf("Welcome to Simple Twitter\n");
+	printf("-------------------------\n");
+	printf("Please enter your user name: ");
+	scanf("%[^\n]s", user[counter].user);	//Stores the name in the char array
+	
+	
+	strcpy(username, user[counter].user);
+
+	printf("Welcome %s, let's start tweeting . . .\n\n", user[counter].user);	//Welcome!!
+	
+	MENU:
+	
+	printf("1. Create a new tweet\n2. Search tweets\n3. Display tweets\n4. Save tweets to file\n5. Load tweets from file\n6. Exit\n\nChoice: ");
+	//Menu Prompt ^^^
+	scanf("%d", &menu_choice);
+	
+
+	user[0].id = 1000;	//Set the begining id number
+	
+
+	while(menu_choice != 6){
+		
+		switch(menu_choice)
+		{	
+			case 1:	//Create a new tweet		
+				
+				if(counter < 5)
+				{	
+					strcpy(user[counter].user, username);	//Assign each index the username element
+					create_tweet(user, counter);
+					counter++;
+					
+				}else{
+				
+					printf("Array is full!\n");	//If there are to many tweets, jsut go to the menu
+					goto MENU;
+				
+				}
+
+			break;
+
+			case 2:
+				Search_tweet(user, counter);	//Search the tweet
+			break;
+
+			case 3:
+				
+				Display_Tweets(user, counter);	//Display the total tweets
+			break;
+
+			case 4:
+
+				Save_tweets(user, counter);	//Save all the tweets
+
+			break;
+
+			case 5:
+				counter = Load_tweets(user, counter);	//Load all the tweets and change the counter so taht each tweet has an individual identity when finding the id
+				
+			break;
+
+			case 6:
+				
+				goto END;	//End program
+			break;
+
+			default:
+				
+				printf("Incorrect entry, enter again: \n\n");	//If non of the values are equal too, re-enter
+			break;
+		
+		}
+
+		printf("\n1. Create a new tweet\n2. Search tweets\n3. Display tweets\n4. Save tweets to file\n5. Load tweets from file\n6. Exit\n\nChoice: ");
+		
+		scanf("%d", &menu_choice);	//Re-enter choice per option chosen
+	}
+	
+	END:
+
+	printf("Goodbye!\n");	//Goodbye!!
+	
+}
+//This function will retrieve all the tweets stored in the file in which the name is provided by the user. The loaded records will replay all existing records.
+//The input will be a struct array and a counter representing the number of tweets that exsist
+//The output will remain void
+int Load_tweets(struct simple_tweet *user, int counter)
+{
+	char file[41];
+	FILE *filename;
+	int in_file_counter = 0;
+	
+	printf("Please enter a filename: ");
+	scanf("%s", file);	//Get filename
+	
+	
+	filename = fopen(file, "r+");	//Open file for reading and editing
+
+	if(filename == NULL)	//If the files can't open, clsoe program
+	{
+		printf("File can't open, closing program");
+		exit(-1);
+	}
+	while(!feof(filename))
+	{	
+		
+		fscanf(filename,"%d\n%[^\n]s\n", &user[in_file_counter].id, user[in_file_counter].created_at);	//Scan the id value and 
+		fscanf(filename," %[^\n]s", user[in_file_counter].user);	//Scan the username
+		getc(filename);
+		fscanf(filename, "%[^\n]s", user[in_file_counter].text);	//Scan the tweet
+		in_file_counter++;	//Counter for the file
+	}
+	
+	in_file_counter--;	//To make sure that one of the tweets that can be displayed does not exist
+
+	printf("%d tweet(s) loaded from file %s", in_file_counter, file);	//Print this
+	
+	fclose(filename);	//Close file
+
+	return in_file_counter;	//Return the number of tweets that are updated.
+
+}
+//This function will create a tweet in store it in a struct array, which will include it's own id, current time, and displaying the information
+//The input of this will be the struct array, and a counter to indicat the number of tweets.
+//The return will be void since there is jsut printing and assigning values.
+//This will automatically generate the next highest value for an id, locate the time and date, and prompt the user for the tweet.
+void create_tweet(struct simple_tweet *user, int counter)
+{	
+	time_t tm = time(NULL);				//Initialize variable for the time
+	char *current_time;
+	printf("Tweet text: ");
+	scanf(" %[^\n]s", user[counter].text);		//Input tweet text
+	user[counter].id = counter + 1000;
+	current_time = asctime(localtime(&tm));		//Current time
+	current_time[strlen(current_time) - 1] = '\0';	//Remove newline character to print it easily
+	strcpy(user[counter].created_at, current_time);	//Put time into struct array
+	
+	//Displaying the tweet after it has been inputted:
+
+	printf("\nNew Tweet Created: \n");
+	printf("Id: %d\t", user[counter].id);
+	printf("Created at: %s by %s", user[counter].created_at, user[counter].user);
+	printf("\n%s\n", user[counter].text);
+}
+
+//This function will save all the tweets to a file. Thr user prompted for the filename. A simple statust is generated accounting to the number of records saved. 
+//This function will take in a struct array called user and a counter to dictact the number of current tweets there are and a counter 2 to dictact whether it should appendd the file (0) or write it (1)
+//The function will return void
+void Save_tweets(struct simple_tweet *user, int counter)
+{
+	char file[41];	//Character array that 
+	FILE *filename;
+	int temp_counter = 0;
+
+	printf("Please enter a filename: ");
+	scanf("%s", file);	//Get file name
+
+	
+	filename = fopen(file, "w");	//Open file to append to the end of it
+	
+
+	if(filename == NULL)
+	{
+		printf("File can't open, closing program.");
+		exit(-1);
+	}
+
+	while(temp_counter < counter)	//For every tweet made
+	{	
+		fprintf(filename,"%d\n%s\n%s\n", user[temp_counter].id, user[temp_counter].created_at, user[temp_counter].user);	//Print it in the file
+		fprintf(filename, "%s\n", user[temp_counter].text);
+		temp_counter++;
+	}
+	
+	printf("%d tweet(s) saved in file %s\n", temp_counter, file);	//Confirm how many tweets were printed into the file
+
+	fclose(filename);	//Close file
+}
+
+//This function will search all tweets' test for occurences of a certian keyword string entered from the user. It will then display all the tweets that contained this keyword
+//The input would be the struct usr array and a counter to equal the number of tweets. It assumes the user will search for the exact words
+//The output would be void
+void Search_tweet(struct simple_tweet *user, int counter)
+{	
+	char key[40];
+	int size = 0;
+	char *ret;
+
+	printf("Please enter the search keyword: ");
+
+	scanf(" %s", key);	//Input the keyword that the user is trying to look for
+	
+	while(size < counter)
+	{
+		ret = strcasestr(user[size].text,key);
+
+		if(ret  != NULL)
+		{
+			printf("Match found!\n");
+			printf("Id: %d\tCreated at: %s by %s\n%s\n", user[size].id, user[size].created_at, user[size].user, user[size].text);
+			
+		}
+
+		size++;
+	}
+
+}
+//This function will display the tweets to the cosnole screen.
+//This function will take in the struct array, and a counter symbolizing the number of tweets that have been written
+//This will return void
+void Display_Tweets(struct simple_tweet *user, int counter)
+{
+	
+	int temp_counter  = 0;
+
+	printf("Displaying all %d tweet(s): \n", counter);
+
+	while(temp_counter < counter)	//Print the contents of each tweet
+	{
+		printf("Id: %d\tCreated at: %s by %s\n", user[temp_counter].id, user[temp_counter].created_at, user[temp_counter].user);
+		printf("%s\n\n", user[temp_counter].text);	//Print everything
+		temp_counter++;
+
+	}
+
+
+}
