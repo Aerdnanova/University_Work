@@ -1,0 +1,98 @@
+#include <stdio.h> //Includes library
+
+//I acknowledge that this is my own work and did not recieve any unauthorized help with it!
+
+unsigned int reverseInteger(unsigned int n);
+unsigned int generateMagicNumber(unsigned int q, unsigned int m);
+
+void main(){
+
+    int choice = -1; //Stores the number of value that will be inputted in the list
+	unsigned int number;
+	unsigned int return_value1, return_value2, greatestValue = 1;
+
+    printf("Enter the number of digits that will be inputed: ");//Prompts user to enter number of numbers that will be in the list
+
+    while (choice < 0){ //This will make sure that user value inputed will be positive
+        
+        scanf("%d", &choice); //Stores positive choice in integer
+
+    }
+    printf("Enter your numbers separated by spaces: "); //Prompts user to enter numbers in lsit
+
+    for(int i = 0; i < choice; i++){ //This will accept a number up to the total choice
+
+		
+        scanf("%d" , &number); //Inputs value into variable and stores choice
+
+		return_value1 = reverseInteger(number); //Calls reverse integers function
+		
+		
+			if(reverseInteger(return_value2) > 0){ //This will re-reverse the magic number to find the greatest absolute value
+			
+				if(greatestValue < reverseInteger(return_value2)){ //If this value is greater than the original value, assign greatestValue a new value
+					
+					greatestValue = reverseInteger(return_value2);
+		
+				}
+			
+			}
+		
+		return_value2 = generateMagicNumber(return_value1 , number); //Calls this function to print out the magic number
+		
+		
+		printf("%d " , return_value2 );  //This will return the magic number
+		
+    }
+	
+	
+	printf("\n"); //Newline to look pretty :) 
+	printf("%d" , greatestValue); //This will print the greatest absolute value amoung each inputted number
+}
+
+
+/*
+This function will take an integer and reverse the order of the digits inside of it. Example: 321 will not be 123. It will do this using
+module and integer division.
+INPUT: this function will take in a user input that is recived through the paramenter. It will take in a unsigned integer value. After the 
+magicNumber function was called, the result of the magic number function will be recalled to reverse it.
+OUTPUT: this function will return the reversed number as an unsigned int.
+*/
+
+unsigned int reverseInteger(unsigned int n){
+
+	unsigned int number = 0;	//This will declare the variable that will hold the value each time the inputed value is %10	
+	
+	while(n != 0){ //While the result of n/10 with integer division is not 0, the loop will continue
+		
+		number = number*10 + n%10; //This will calculate the reversed number
+		n =  n/10;
+	}
+	
+	return number; //Return the number 
+	
+
+}
+
+/*
+This functiont will take the reversed number, as well as the user inputted number, then subtract the reversed number from the original inputted number.
+After that, it will find the absolute value for this new value. 
+INPUT: This function will take in the original inputted nuber value, and it's reversed as parameters.
+OUTPUT: This function will return the final magic number as a paramter to the reverseInteger function to reverse it one more time before printing it out.
+*/
+
+unsigned int generateMagicNumber(unsigned int q, unsigned int m){
+
+	int value; //Declare the value variable that will be used to store the reversed number - the original number
+	
+	value = q - m; //Find the value when the reversed - original
+	
+	if(value > 0){
+		return reverseInteger(value); //If the value is positive, return the value to the function reverseInteger
+	}else{
+		value *= (-1);
+		return reverseInteger(value); //If the value is negative, multiply it by -1 then return it to the function reverseInteger
+	}
+	
+}
+//End program!!! :)
