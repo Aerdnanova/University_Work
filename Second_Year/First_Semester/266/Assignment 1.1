@@ -1,0 +1,88 @@
+;	Author: Andrea Bonato
+;	104760390	
+;	This assignment will prompt the user to enter two values, for d and c, then complete
+;	the formula "Z = (A + B) - (C - D)", then print out all variables, then Z in hex, dec and int form
+
+TITLE Program Assignment 1 part 1
+INCLUDE Irvine32.inc
+
+.data
+	;Initialize data
+	A dword 543210
+	B word 3210
+	_C dword ?
+	msg1 BYTE "What is the value of C?: ",0
+	msg2 BYTE "What is the value of D?: ", 0
+	msg3 BYTE "Z = (A + B) - (C - D)",0
+	msg4 BYTE "   ;   ", 0 ;separation
+	D BYTE ?
+	Z dword ?
+
+.code
+main PROC
+	MOV eax, A
+	MOVZX ebx, B
+	ADD ebx, eax	; A + B
+	;-------------------------------
+	;Getting values:
+	MOV edx, OFFSET msg1	; Get C
+	CALL WriteString
+	CALL ReadDec
+	MOV _C, eax
+
+	MOV edx, OFFSET msg2	; Get D
+	CALL WriteString
+	Call ReadDec
+	MOV D, AL
+
+;	AL will contain D, eax shoud contain c
+;----------------------------------------
+;Calculating:
+	MOV edx, _C
+	MOVZX eax,D
+	SUB edx,eax		;C - D
+	SUB ebx,edx		;(A + B) - (C - D)
+	MOV Z, ebx
+;----------------------------------------
+;Printing it out:
+	MOV edx, OFFSET msg3	;	"Z = (A + B) - (C - D)"
+
+	CALL WriteString
+	CALL crlf
+	
+	MOV eax, A
+	CALL WriteDec		;Write A
+
+	MOV edx, OFFSET msg4
+	CALL WriteString
+
+	MOVZX eax, B	;Write B
+	CALL WriteDec
+
+	MOV edx, OFFSET msg4
+	CALL WriteString
+
+	MOV eax, _C		;Write C
+	CALL WriteDec
+	
+	MOV edx, OFFSET msg4
+	CALL WriteString
+
+	MOVZX eax, D		;Write D
+	CALL WriteDec
+
+	CALL crlf
+
+	;Writing Z in Binary, decimal and hex
+	MOV eax, Z
+	
+	CALL WriteBin
+	CALL crlf
+	CALL WriteDec
+	CALL crlf
+	Call WriteHex
+	CALL crlf
+
+	exit
+main ENDP
+end main
