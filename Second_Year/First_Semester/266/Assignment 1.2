@@ -1,0 +1,46 @@
+; Author: Andrea Bonato
+; 104760390
+; This assignment will reverse the order of bytes in bigEndian
+
+TITLE Program Assignment 1 PART 2
+INCLUDE Irvine32.inc
+
+.data
+	bigEndian BYTE 089h, 0ABh, 0CDh, 0EFh
+	littleEndian DWORD ?
+
+.code
+main PROC
+	
+	;This is to print out the bigEndian value
+	MOV al,[bigEndian + 0]
+	MOV BYTE PTR [littleEndian + 3], al
+	MOV al,[bigEndian + 1]
+	MOV BYTE PTR [littleEndian+2], al
+	MOV al,[bigEndian + 2]
+	MOV BYTE PTR [littleEndian+1], al
+	MOV al,[bigEndian + 3]
+	MOV BYTE PTR [littleEndian+0], al
+	
+	MOV eax, littleEndian
+	CALL WriteHex
+	CALL crlf
+
+	;This is to reverse it into littleEndian then print it out
+	MOV al,[bigEndian + 0]
+	MOV BYTE PTR [littleEndian], al
+	MOV al,[bigEndian + 1]
+	MOV BYTE PTR [littleEndian+1], al
+	MOV al,[bigEndian + 2]
+	MOV BYTE PTR [littleEndian+2], al
+	MOV al,[bigEndian + 3]
+	MOV BYTE PTR [littleEndian+3], al
+	
+	MOV eax, littleEndian
+	CALL WriteHex
+	CALL crlf
+
+
+	exit
+main ENDP
+end main
