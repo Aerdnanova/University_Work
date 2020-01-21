@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/uio.h>
+#include <stdlib.h>
+
+int main()
+{	
+	//Input and output file
+	char inputFile[20];
+	char outputFile[20];
+	char *buff;	//Single character buffer
+
+	printf("Enter the source file name: ");
+	scanf("%s", inputFile);
+	
+
+	//Open file descriptors
+	int fileSourceDescriptor = open(inputFile, O_RDONLY);
+	
+	//check for errors
+	if(fileSourceDescriptor > 0){
+	
+		printf("Enter the destination file name: ");
+		scanf("%s", outputFile);	
+		
+		//Open file descriptor
+		int fileDestinationDescriptor = open(outputFile, O_WRONLY);	
+		
+		if(fileDestinationDescriptor > 0){
+		
+			//assuming that everything is okay
+
+			while(read(fileSourceDescriptor, buff, 1)){	//read and write into new file
+			
+				write(fileDestinationDescriptor, buff, 1);
+
+			}
+
+			//close everything	
+			close(fileSourceDescriptor);
+			close(fileDestinationDescriptor);
+
+		}else{
+			
+			perror("File not found!");
+			return -1;
+		
+		}
+		
+	}else{
+		
+		perror("File not found!");
+		return -1;
+
+	}
+
+	printf("Copied!\n");
+}	
