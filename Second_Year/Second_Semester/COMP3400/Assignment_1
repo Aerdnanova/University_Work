@@ -1,0 +1,50 @@
+/**
+	This is Assignment 1 of COMP3400. It's goal is to cycle through strings to replace all dots, commans,
+question marks, dashs and single quotes from any non substring value.
+Andrea Bonato
+104760390
+2020-01-20
+
+**/
+
+#include <iostream>
+
+using namespace std;
+//Include the std namespace and avoid writing std::
+
+int main()
+{
+	string str1;	//This will be used as to take in the lines of text
+	bool toggle = false;	//This will be used to toggle the replacement of characters
+
+	while (getline(cin, str1))	//This will get each line until EOF
+	{
+		toggle = false;	
+		//Default to replace
+
+		//Iterate through string
+		for (auto& s: str1) 
+		{
+			if (s == '\"')
+			{	
+				toggle = !toggle;
+			}
+			else
+			{	
+				//replacement of the given characters
+				if (toggle == false){
+					
+					if (s == '.' || s == ',' || s == '?' || s == '-' || s == '\'')
+					{
+						s = ' ';	
+					}
+				}
+		
+			}		
+	
+		}
+		
+		//print out new string
+		cout << "\n" << str1 << endl;
+	}
+}
