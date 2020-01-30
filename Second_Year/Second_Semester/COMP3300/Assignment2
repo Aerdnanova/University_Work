@@ -1,0 +1,42 @@
+/**
+Andrea Bonato
+104760390
+This program will automatically create a zombie process, then print out all the processes, then kill the parent and then reprint the processes to prove that the zombie was killed
+**/
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+int main ()
+{	
+
+	printf("Wait 10 seconds....\n");
+	
+	if (fork() > 0)
+	{	
+		//parent
+		sleep(10);	//Wait ten seconds 
+		
+		if (fork() > 0)	//Create another fork
+		{	
+			execlp("ps", "ps", "-l", (char*)NULL);
+		}
+
+		sleep(1);
+		//After parent killed
+		printf("\nNew updated list ....\n");
+		execlp("ps", "ps", "-l", (char*)NULL);
+		pause();
+
+	}	
+	else
+	{	
+		//child uses exit function
+		exit(0);
+	}
+	
+	return 0;
+}
