@@ -1,0 +1,43 @@
+body {
+
+    background-color: #663;
+
+}
+.links {
+    color: #66A;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    word-spacing: 30px;
+    text-align: center;
+    font-size: medium;
+}
+p {
+
+    color: #66A;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
+
+h1, h2, h3, h4 {
+    color: #66A;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
+tr {
+
+    background-color: #3D3;
+}
+img {
+
+    border-radius: 50%;
+    border: 3px solid #ddd;
+    height: auto;
+    
+}
+.center {
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
