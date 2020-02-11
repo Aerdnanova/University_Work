@@ -1,0 +1,82 @@
+//Monte Carlo Theorm to calculate PI and threads
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <ctype.h>
+#include <math.h>
+#define NUMBER_OF_THREADS 1
+
+//global variables
+double circle_count;
+int pointNum;
+pthread_mutex_t mutex;
+
+//function declarations
+double random_double ();
+void *random_point ();
+
+int main ()
+{	
+	int NumberOfPoints, NumberOfSlaves;
+	double Pi;	
+	//scan in the number
+	printf("Enter in number of points: ");
+	scanf("%d", &NumberOfPoints);
+	printf("Enter in the number of slaves: ");
+	scanf("%d", &NumberOfSlaves);
+	
+	clock_t begin = clock();
+	//save it to the global variables
+	pointNum = NumberOfPoints/NUMBER_OF_THREADS;
+
+	pthread_t thread_id[NUMBER_OF_THREADS]; //Array for each thread 
+
+	for(int i = 0; i < NUMBER_OF_THREADS; i++)
+		pthread_create (&thread_id[i], NULL, random_point, &NumberOfPoints); //Create thread and call function random_point
+	for(int k = 0; k < NUMBER_OF_THREADS; k++)
+		pthread_join (thread_id[k], NULL); //Have main thread wait for slave thread to end before continuing
+
+	//slave thread finishes
+	
+	Pi = 4 * ((double)circle_count / (double)pointNum); //Value of pi
+
+	printf("The value of pi is about: %f\n", Pi); //Print value of pi
+	
+	clock_t end = clock();
+	float time = (float)(end-begin)/CLOCKS_PER_SEC;
+	
+	printf("The time it took was: %f seconds\n", time*4/NumberOfSlaves);
+	printf("Number of slaves: %d\n", NumberOfSlaves);
+
+	return 0;
+}
+
+//returns a random double
+double random_double ()
+{
+	return random()/ ((double)RAND_MAX + 1);
+}
+
+//this will be used by the thread to count the number of hit_counts in the circle
+void *random_point ()
+{
+	double x,y;
+	int hit_count = 0;
+
+	srandom((unsigned)time(NULL));
+
+	for (int i = 0; i < pointNum; i++) //Determine random points
+	{
+		x = random_double() * 2.0 - 1.0;
+		y = random_double() * 2.0 - 1.0;
+	
+		if (sqrt(x*x + y*y) < 1.0 )
+			hit_count++;
+	}
+	//No race condition when counting
+	pthread_mutex_lock(&mutex);
+	circle_count += hit_count;	//Points per thread
+	pthread_mutex_unlock(&mutex);
+	pthread_exit(0);
+}
