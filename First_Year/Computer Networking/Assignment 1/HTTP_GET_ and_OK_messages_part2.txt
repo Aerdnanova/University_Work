@@ -1,0 +1,132 @@
+No.     Time           Source                Destination           Protocol Length Info
+    213 15.092875      192.168.0.110         128.119.245.12        HTTP     484    GET /wireshark-labs/HTTP-wireshark-file1.html HTTP/1.1 
+
+Frame 213: 484 bytes on wire (3872 bits), 484 bytes captured (3872 bits) on interface 0
+Ethernet II, Src: IntelCor_a9:c1:a8 (48:45:20:a9:c1:a8), Dst: Tp-LinkT_05:32:9a (c4:71:54:05:32:9a)
+    Destination: Tp-LinkT_05:32:9a (c4:71:54:05:32:9a)
+        Address: Tp-LinkT_05:32:9a (c4:71:54:05:32:9a)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: IntelCor_a9:c1:a8 (48:45:20:a9:c1:a8)
+        Address: IntelCor_a9:c1:a8 (48:45:20:a9:c1:a8)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv4 (0x0800)
+Internet Protocol Version 4, Src: 192.168.0.110, Dst: 128.119.245.12
+    0100 .... = Version: 4
+    .... 0101 = Header Length: 20 bytes (5)
+    Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+    Total Length: 470
+    Identification: 0x38cd (14541)
+    Flags: 0x4000, Don't fragment
+        0... .... .... .... = Reserved bit: Not set
+        .1.. .... .... .... = Don't fragment: Set
+        ..0. .... .... .... = More fragments: Not set
+        ...0 0000 0000 0000 = Fragment offset: 0
+    Time to live: 128
+    Protocol: TCP (6)
+    Header checksum: 0x89ba [validation disabled]
+    [Header checksum status: Unverified]
+    Source: 192.168.0.110
+    Destination: 128.119.245.12
+Transmission Control Protocol, Src Port: 59648, Dst Port: 80, Seq: 1, Ack: 1, Len: 430
+    Source Port: 59648
+    Destination Port: 80
+    [Stream index: 15]
+    [TCP Segment Len: 430]
+    Sequence number: 1    (relative sequence number)
+    [Next sequence number: 431    (relative sequence number)]
+    Acknowledgment number: 1    (relative ack number)
+    0101 .... = Header Length: 20 bytes (5)
+    Flags: 0x018 (PSH, ACK)
+    Window size value: 1024
+    [Calculated window size: 262144]
+    [Window size scaling factor: 256]
+    Checksum: 0x6b38 [unverified]
+    [Checksum Status: Unverified]
+    Urgent pointer: 0
+    [SEQ/ACK analysis]
+    [Timestamps]
+    TCP payload (430 bytes)
+Hypertext Transfer Protocol
+    GET /wireshark-labs/HTTP-wireshark-file1.html HTTP/1.1\r\n
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n
+    Accept-Language: en-CA,en-US;q=0.7,en;q=0.3\r\n
+    Upgrade-Insecure-Requests: 1\r\n
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362\r\n
+    Accept-Encoding: gzip, deflate\r\n
+    Host: gaia.cs.umass.edu\r\n
+    Connection: Keep-Alive\r\n
+    \r\n
+    [Full request URI: http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html]
+    [HTTP request 1/1]
+    [Response in frame: 215]
+
+No.     Time           Source                Destination           Protocol Length Info
+    215 15.121180      128.119.245.12        192.168.0.110         HTTP     540    HTTP/1.1 200 OK  (text/html)
+
+Frame 215: 540 bytes on wire (4320 bits), 540 bytes captured (4320 bits) on interface 0
+Ethernet II, Src: Tp-LinkT_05:32:9a (c4:71:54:05:32:9a), Dst: IntelCor_a9:c1:a8 (48:45:20:a9:c1:a8)
+    Destination: IntelCor_a9:c1:a8 (48:45:20:a9:c1:a8)
+        Address: IntelCor_a9:c1:a8 (48:45:20:a9:c1:a8)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: Tp-LinkT_05:32:9a (c4:71:54:05:32:9a)
+        Address: Tp-LinkT_05:32:9a (c4:71:54:05:32:9a)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv4 (0x0800)
+Internet Protocol Version 4, Src: 128.119.245.12, Dst: 192.168.0.110
+    0100 .... = Version: 4
+    .... 0101 = Header Length: 20 bytes (5)
+    Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+    Total Length: 526
+    Identification: 0xd2e9 (53993)
+    Flags: 0x4000, Don't fragment
+        0... .... .... .... = Reserved bit: Not set
+        .1.. .... .... .... = Don't fragment: Set
+        ..0. .... .... .... = More fragments: Not set
+        ...0 0000 0000 0000 = Fragment offset: 0
+    Time to live: 52
+    Protocol: TCP (6)
+    Header checksum: 0x3b66 [validation disabled]
+    [Header checksum status: Unverified]
+    Source: 128.119.245.12
+    Destination: 192.168.0.110
+Transmission Control Protocol, Src Port: 80, Dst Port: 59648, Seq: 1, Ack: 431, Len: 486
+    Source Port: 80
+    Destination Port: 59648
+    [Stream index: 15]
+    [TCP Segment Len: 486]
+    Sequence number: 1    (relative sequence number)
+    [Next sequence number: 487    (relative sequence number)]
+    Acknowledgment number: 431    (relative ack number)
+    0101 .... = Header Length: 20 bytes (5)
+    Flags: 0x018 (PSH, ACK)
+    Window size value: 237
+    [Calculated window size: 30336]
+    [Window size scaling factor: 128]
+    Checksum: 0xd791 [unverified]
+    [Checksum Status: Unverified]
+    Urgent pointer: 0
+    [SEQ/ACK analysis]
+    [Timestamps]
+    TCP payload (486 bytes)
+Hypertext Transfer Protocol
+    HTTP/1.1 200 OK\r\n
+    Date: Mon, 23 Sep 2019 01:10:13 GMT\r\n
+    Server: Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips PHP/5.4.16 mod_perl/2.0.10 Perl/v5.16.3\r\n
+    Last-Modified: Sun, 22 Sep 2019 05:59:01 GMT\r\n
+    ETag: "80-5931dfff61479"\r\n
+    Accept-Ranges: bytes\r\n
+    Content-Length: 128\r\n
+    Keep-Alive: timeout=5, max=100\r\n
+    Connection: Keep-Alive\r\n
+    Content-Type: text/html; charset=UTF-8\r\n
+    \r\n
+    [HTTP response 1/1]
+    [Time since request: 0.028305000 seconds]
+    [Request in frame: 213]
+    [Request URI: http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html]
+    File Data: 128 bytes
+Line-based text data: text/html (4 lines)
