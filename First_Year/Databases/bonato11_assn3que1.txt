@@ -1,0 +1,321 @@
+Script started on Fri 15 Nov 2019 10:36:48 PM EST
+]0;bonato11@bravo: ~/315[01;32mbonato11@bravo[00m:[01;34m~/315[00m$ sqlplus bonato11
+[K
+SQL*Plus: Release 12.1.0.2.0 Production on Fri Nov 15 22:36:56 2019
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter password: [KEnter password: [K[KEnter password: [KEnter password: *[KEnter password: **[KEnter password: ***[KEnter password: ****[KEnter password: *****[KEnter password: ******[KEnter password: *******[KEnter password: ********[KEnter password: *********[KEnter password: **********[KEnter password: ***********[KEnter password: **********[KEnter password: *********[KEnter password: ********[KEnter password: *******[KEnter password: ******[KEnter password: *****[KEnter password: ****[KEnter password: ***[KEnter password: **[KEnter password: *[KEnter password: [KEnter password: *[KEnter password: **[KEnter password: ***[KEnter password: ****[KEnter password: *****[KEnter password: ******[KEnter password: *******[KEnter password: ********[KEnter password: *********[KEnter password: **********[KEnter password: ***********[KEnter password: ************[KEnter password: *************[KEnter password: *************[KEnter password: 
+[K
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> [KSQL> [KSQL> @bonato11_airlineschema.sql[C[C[C[C[C[K@bonato11_airlineschema.sql
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+SQL> [KSQL> [KSQL> @bonato11_airlineschema.sql[1P.sql[1P.sql[1P.sql[1P.sql[1P.sql[1P.sqld.sqla.sqlt.sqla.sql[C[C[C[C[C[K@bonato11_airlinedata.sql
+[K
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+[K
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+[K
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+[K
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+[K
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+SQL> [KSQL> [KSQL> select * from AIRPORT[C[C[C[C[C[Kselect * from AIRPORT
+  2  [K  2  [K  2  ;[K;
+
+AIR NAME			   CITY 		STA
+--- ------------------------------ -------------------- ---
+YYZ Pearson Airport		   Toronto		ON
+YTZ Island Airport		   Toronto		ON
+YQT Thunder Bay Airport 	   Thunder Bay		ON
+YQG Windsor Airport		   Windsor		ON
+YYC Calgary Airport		   Calgary		AB
+
+SQL> [KSQL> [KSQL> ;select * from AIRPORT[C;[C[1P;[1P;[1P;[1P;[1P;[1P;[1P;F;L;I;H;[1P;G;H;T;[C[C[C[C[C[Kselect * from FLIGHT;
+
+FLIGH AIRLINE		   WEEKDAYS
+----- -------------------- --------------------
+WJ250 WestJet		   3
+WJ261 WestJet		   4
+AC275 Air Canada	   2
+AC300 Air Canada	   3
+AC320 Air Canada	   2
+PA233 Porter Airline	   5
+PA280 Porter Airline	   4
+
+7 rows selected.
+
+SQL> [KSQL> [KSQL> select * from FLIGHT;[C[1P;[1P;[1P;[1P;[1P;[1P;F;L;I;I;G;H;T;[1P;[1P;[1P;[1P;G;H;T;_;L;E;G;[C[C[C[C[C[Kselect * from FLIGHT_LEG;
+
+FLIGH LE DEP SCHEDULED_DEPARTURE_ ARRIV SCHEDULED_ARRIVAL_TI
+----- -- --- -------------------- ----- --------------------
+WJ250 1  YQG 08:00		  YYZ	09:00
+WJ250 2  YYZ 12:00		  YYC	17:00
+AC275 1  YQT 10:00		  YYZ	11:00
+AC275 2  YYZ 13:00		  YQG	14:00
+PA233 1  YQG 16:00		  YYZ	17:00
+PA280 1  YYZ 11:00		  YQG	12:00
+
+6 rows selected.
+
+SQL> [KSQL> [KSQL> select * from FLIGHT_LEG;[1P;[1P;[1P;[1P;[1P;[1P;[1P;[1P;[1P;[1P;l;[1P;L;E;G;_;I;N;S;T;A;N;C;E;[C[C[C[C[C[Kselect * from LEG_INSTANCE;
+
+FLIGH LE FDATE		      NUM_AVAILABLE_SEATS AIRPLANE_ID	  DEP DEPAR
+----- -- -------------------- ------------------- --------------- --- -----
+ARRIV ARRIV
+----- -----
+WJ250 1  15-JAN-17			      200 Boeing_777	  YQG 8:00
+YYZ   8:50
+
+WJ250 2  15-JAN-17			      200 Boeing_777	  YYZ 12:30
+YYC   16:50
+
+AC275 1  10-JAN-17			       60 Airbus_200	  YQT 10:00
+YYZ   11:00
+
+
+FLIGH LE FDATE		      NUM_AVAILABLE_SEATS AIRPLANE_ID	  DEP DEPAR
+----- -- -------------------- ------------------- --------------- --- -----
+ARRIV ARRIV
+----- -----
+AC275 2  10-JAN-17			       60 Airbus_200	  YYZ 13:00
+YQG   14:00
+
+PA233 1  30-JAN-17			      120 Boeing_737	  YQG 16:00
+YYZ   17:00
+
+PA280 1  20-JAN-17			      120 Boeing_737	  YYZ 11:00
+YQG   12:00
+
+
+6 rows selected.
+
+SQL> [KSQL> [KSQL> select * from LEG_INSTANCE;[1P;[1P;[1P;[1P;[1P;[1P;[1P;[1P;[1P;[1P;[1P;[1P;F;A;R;E;S;[C[C[C[C[C[Kselect * from FARES;
+
+FLIGH FA AMOUN RESTRICTIONS
+----- -- ----- ---------------
+WJ250 F1 $250  None
+WJ250 F2 $350  None
+AC275 F1 $275  Non-refundable
+AC275 F2 $300  Non-refundable
+PA233 F3 $150  None
+PA280 F3 $150  None
+
+6 rows selected.
+
+SQL> [KSQL> [KSQL> select * from FARES;[1P;[1P;[1P;[1P;[1P;S;E;A;T;_;R;E;S;E;R;V;A;T;I;O;N;[C[C[C[C[C[Kselect * from SEAT_RESERVATION;
+
+FLIGH LE FDATE		      SEAT_ CUSTOMER_NAME	 CUSTOMER_PHO
+----- -- -------------------- ----- -------------------- ------------
+WJ250 1  15-JAN-17	      20A   Mariane Mooer	 519-253-3000
+WJ250 2  15-JAN-17	      13D   Mariane Mooer	 519-253-3000
+WJ250 1  15-JAN-17	      6A    Tony Appa		 226-253-4000
+WJ250 2  15-JAN-17	      7D    Tony Appa		 226-253-4000
+WJ250 1  15-JAN-17	      6B    Karen Appa		 226-253-4000
+WJ250 2  15-JAN-17	      7C    Karen Appa		 226-253-4000
+AC275 1  10-JAN-17	      5C    Mark Black		 226-212-5341
+AC275 2  10-JAN-17	      14B   Mark Black		 226-212-5341
+PA233 1  30-JAN-17	      5A    Peter Opo		 519-444-1234
+PA280 1  20-JAN-17	      16D   Chris Natta 	 226-123-5555
+
+10 rows selected.
+
+SQL> [KSQL> [KSQL> select * from SEAT_RESERVATION;[11PFARES;LEG_INSTANCE;[2PFLIGHT_LEG;;[K[C[C[C[C[C;[Kselect * from AIRPORT[C[C[C[C[C@bonato11_airlinedata.sqlschema.sql[2Pdata.sql[1P.sql[1P.sql[1P.sql[1P.sqlD.sqlR.sqlO.sqlP.sql .sqlT.sqlA.sql[1P.sql[1P.sql[1P.sql[1P.sql[1P.sql[1P.sql[1P.sqld.sqlr.sqlo.sqlp.sqlt.sqla.sqlb.sqll.sqle.sql[C[C[C[C[C[K@bonato11_airlinedroptable.sql
+
+10 rows deleted.
+
+
+6 rows deleted.
+
+
+6 rows deleted.
+
+
+6 rows deleted.
+
+
+7 rows deleted.
+
+
+5 rows deleted.
+
+
+Commit complete.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+[K
+Table dropped.
+
+
+Table dropped.
+
+
+Commit complete.
+
+SQL> [KSQL> [KSQL> eixt[K[K[Kxit[Kexit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+]0;bonato11@bravo: ~/315[01;32mbonato11@bravo[00m:[01;34m~/315[00m$ exit
+exit
+
+Script done on Fri 15 Nov 2019 10:41:24 PM EST

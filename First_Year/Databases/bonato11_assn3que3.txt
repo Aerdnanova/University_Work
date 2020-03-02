@@ -1,0 +1,197 @@
+Script started on Sat 16 Nov 2019 01:32:12 AM EST
+]0;bonato11@bravo: ~/315[01;32mbonato11@bravo[00m:[01;34m~/315[00m$ sqlplus bonato11
+[K
+SQL*Plus: Release 12.1.0.2.0 Production on Sat Nov 16 01:32:18 2019
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter password: [KEnter password: [K[KEnter password: [KEnter password: *[KEnter password: **[KEnter password: ***[KEnter password: ****[KEnter password: *****[KEnter password: ******[KEnter password: *******[KEnter password: ********[KEnter password: *********[KEnter password: **********[KEnter password: ***********[KEnter password: ************[KEnter password: *************[KEnter password: *************[KEnter password: 
+[K
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> [KSQL> [KSQL> @bonato11_airlineschema.al[K[Ksql[C[C[C[C[C[K@bonato11_airlineschema.sql
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+SQL> [KSQL> [KSQL> @bonato11_airlinedata.sql[C[C[C[C[C[K@bonato11_airlinedata.sql
+[K
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+[K
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+[K
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+[K
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+[K
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+SQL> [KSQL> [KSQL> INSERT into AIRPR[KORT vales[K[Kues()[C[C;');');[1P);Y);T);T);');,);'T);I);N);[1P);[1P);i);n);T);i);[1P);[1P);t);i);n);');,);[C ',);A',);i',);r',);p',);o',);r',);t',);[C[C );');T);i);n);t);i);n);');,);');O);N);');[C[C[C[C[C[KINSERT into AIRPORT values('YTT','Tintin Airport', 'Tintin','ON');
+
+1 row created.
+
+SQL> [KSQL> [KSQL> UPDATE SEAT_RESERVATION[C[C[C[C[C[KUPDATE SEAT_RESERVATION
+  2  [K  2  [K  2  SET Customer_name[K[K[K[Kphone [K = '519=[K-253-4001'[C[C[C[C[C[KSET Customer_phone = '519-253-4001'
+  3  [K  3  [K  3  WHEREC[K Csutomer[K[K[K[K[K[K[Kustomer_name = 'Tony Appa';[C[C[C[C[C[KWHERE Customer_name = 'Tony Appa';
+
+2 rows updated.
+
+SQL> [KSQL> [KSQL> Insert[K[K[K[K[KNSERT into FLIGHT values()[C[C;');A);C);3);3);1);');.);[1P);,);');a);[1P);A);i);r); );C);a);n);a);d);a);');,); );');2);');[C[C[C[C[C[C[KINSERT into FLIGHT values('AC331','Air Canada', '2');
+
+1 row created.
+
+SQL> [KSQL> [KSQL> DELETE from SEAT_RESERVATION[C[C[C[C[C[KDELETE from SEAT_RESERVATION
+  2  [K  2  [K  2  Where[K[K[K[KHERE cUS[K[K[KCustomer_name = 'Mariane Mooer';[C[C[C[C[C[KWHERE Customer_name = 'Mariane Mooer';
+
+2 rows deleted.
+
+SQL> [KSQL> [KSQL> exit[Kexit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+]0;bonato11@bravo: ~/315[01;32mbonato11@bravo[00m:[01;34m~/315[00m$ x[Kexit
+exit
+
+Script done on Sat 16 Nov 2019 01:41:02 AM EST

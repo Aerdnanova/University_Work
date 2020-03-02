@@ -1,0 +1,87 @@
+Script started on Sat 16 Nov 2019 08:16:57 PM EST
+]0;bonato11@bravo: ~/315[01;32mbonato11@bravo[00m:[01;34m~/315[00m$ exitEXITsqlplus bonato11cript bonato11_assn3que3.txt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[13Pqlplus bonato11
+[K
+SQL*Plus: Release 12.1.0.2.0 Production on Sat Nov 16 20:17:00 2019
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter password: [KEnter password: [K[KEnter password: [KEnter password: *[KEnter password: **[KEnter password: ***[KEnter password: ****[KEnter password: *****[KEnter password: ******[KEnter password: *******[KEnter password: ********[KEnter password: *********[KEnter password: **********[KEnter password: ***********[KEnter password: ************[KEnter password: *************[KEnter password: *************[KEnter password: 
+[K
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> [KSQL> [KSQL> SELECT SEAT_RESERVATION.Customer_name, SEAT_rESER[K[K[K[K[KRESERVATION.Flight_number, K[KLEG_INSTANCE.Departure_airport_code[C[C[C[C[C[KSELECT SEAT_RESERVATION.Customer_name, SEAT_RESERVATION.Flight_number, LEG_INSTANCE.Departure_airport_code
+  2  [K  2  [K  2  FROM SEAT_rESER[K[K[K[K[KRESERVATION, LEG_INSTANCE[C[C[C[C[C[KFROM SEAT_RESERVATION, LEG_INSTANCE
+  3  [K  3  [K  3  WHERE LEG_ISNTANCE.Departure_airport_code[1PTANCE.Departure_airport_code[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1PTANCE.Departure_airport_code[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CNTANCE.Departure_airport_code[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CSTANCE.Departure_airport_code[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C = 'YQG' AND LEG_INSTANCE.FLIGHT[K[K[K[K[Klight_number = SEAT_RESERVATION.fL[K[KFLI[K[Klight_number  AND LEG_INSTN[KANCE.Leg_number = SEAT_rESE[K[K[K[KRESERVATIONRRRRRRRRRR[K[K[K[K[K[K[K[K[K[KR[KR[KR[KR[KR[KR[KRR[KR[KR[KR[KR[KR[KR[K[K.lE[K[KLeg_number;[A[C[C[C[C[C[K
+[K[A[C[C[C[C[CWHERE LEG_INSTANCE.Departure_airport_code = 'YQG' AND LEG_INSTANCE.Flight_number = SEAT_RESERVATION.Flight_number AND LEG_INSTANCE.Leg_number = SEAT_RESERVATION.Leg_number;
+
+CUSTOMER_NAME	     FLIGH DEP
+-------------------- ----- ---
+Mariane Mooer	     WJ250 YQG
+Tony Appa	     WJ250 YQG
+Karen Appa	     WJ250 YQG
+Peter Opo	     PA233 YQG
+
+SQL> [KSQL> [KSQL> SEKEC[K[K[KLECT FI[KLIGHT_LEG.Flight_number, FLIGHT.Airline.[K,[C[C[C[1P,[1P,[1P,[1P,[1P,[1P,[1P,[1P,_,L,E,G,.,L,e,g,_,n,u,m,b,e,r,[C[K[C[C[C[C[C[KSELECT FLIGHT_LEG.Flight_number, FLIGHT_LEG.Leg_number
+  2  [K  2  [K  2  FROM F;IGH[K[K[K[KLIGHT+LEG[K[K[K[K_LEG[C[C[C[C[C[KFROM FLIGHT_LEG
+  3  [K  3  [K  3  WHERE FLIGHT_LEG.Leg_number > 1;[C[C[C[C[C[KWHERE FLIGHT_LEG.Leg_number > 1;
+
+FLIGH LE
+----- --
+AC275 2
+WJ250 2
+
+SQL> [KSQL> [KSQL> SELECT SEAT_RESERVATIOIN[K[KN.Flighr[K[K[Kght_number, FLIGHT.Airline, SEAT_RESERVATION.f[Kf[KFDate,[C[C[C[C[C[KSELECT SEAT_RESERVATION.Flight_number, FLIGHT.Airline, SEAT_RESERVATION.FDate,
+  2  [K  2  [K  2  (SELECT COUNT(Customer_name)[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K(SELECT COUNT(Customer_name)
+  3  [K  3  [K  3  FROM SEAT_RESERVATION[C[C[C[C[C[KFROM SEAT_RESERVATION
+  4  [K  4  [K  4  WHERE FLIGHT.Flight_number = SEAT_RESERVATION.Flight_number) AS CustomerNum[C[C[C[C[C[KWHERE FLIGHT.Flight_number = SEAT_RESERVATION.Flight_number) AS CustomerNum
+  5  [K  5  [K  5  FROM SEAT_rE[K[KRESERVATION, FLIGHT[C[C[C[C[C[KFROM SEAT_RESERVATION, FLIGHT
+  6  [K  6  [K  6  WHERE SEAT_RESERVATION.Flight_number = FLIGHT.Flight_number;[C[C[C[C[C[KWHERE SEAT_RESERVATION.Flight_number = FLIGHT.Flight_number;
+
+FLIGH AIRLINE		   FDATE		CUSTOMERNUM
+----- -------------------- -------------------- -----------
+WJ250 WestJet		   15-JAN-17			  6
+WJ250 WestJet		   15-JAN-17			  6
+WJ250 WestJet		   15-JAN-17			  6
+WJ250 WestJet		   15-JAN-17			  6
+WJ250 WestJet		   15-JAN-17			  6
+WJ250 WestJet		   15-JAN-17			  6
+AC275 Air Canada	   10-JAN-17			  2
+AC275 Air Canada	   10-JAN-17			  2
+PA233 Porter Airline	   30-JAN-17			  1
+PA280 Porter Airline	   20-JAN-17			  1
+
+10 rows selected.
+
+SQL> [KSQL> [KSQL> SEAT[K[KLECT SEAT_RESERVATION.Flight_number, SEAT_RESERVATION.Seat_number,[K, SEAT_rE[K[KRESERVATION.Customer_name[C[C[C[C[C[KSELECT SEAT_RESERVATION.Flight_number, SEAT_RESERVATION.Seat_number, SEAT_RESERVATION.Customer_name
+  2  [K  2  [K  2  FROM [K SEAT_RESERVATION.cU[K[KCustomer_name[K[K[K[K[K[K[K[K[K[K[K[K[K[K,F[K Flight[C[C[C[C[C[KFROM SEAT_RESERVATION, Flight
+  3  [K  3  [K  3  WHERE FLIGHT.Flight_number = SEAT)RESERVATION[K[K[K[K[K[K[K[K[K[K[K[K_RESERVATION.fLI[K[K[KFlight_number AND FLIGHT.S[KS[Ka[KAirline [[K= 'AIR[K[Kirr[K F[KCanada';[C[C[C[C[C[KWHERE FLIGHT.Flight_number = SEAT_RESERVATION.Flight_number AND FLIGHT.Airline = 'Air Canada';
+
+FLIGH SEAT_ CUSTOMER_NAME
+----- ----- --------------------
+AC275 5C    Mark Black
+AC275 14B   Mark Black
+
+SQL> [KSQL> [KSQL> WHERE SEAT_RESERVATION.Flight_number = LEG_INSTANCE.Flight_number AND LEG_INSTANCE.Leg_number = SEAT_RESERVATION.Leeg_number AND LEG_INSTANCE.Leg_number > ( SELECT MIN(Leg_number FROM LEG_INSTANCE);[A[C[C[C[C[CFROM SEAT_RESERVATION, LEG_INSTANCE[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CSELECT SEAT_RESERVATION.Customer_name, SEAT_RESERVATION.Flight_number, LEG_INSTANCE.Departure_airport_code, LEG_INSSTANCE.Arrival_airport_code[A[C[C[C[C[C[K
+[K[A[C[C[C[C[CSELECT SEAT_RESERVATION.Customer_name, SEAT_RESERVATION.Flight_number, LEG_INSTANCE.Departure_airport_code, LEG_INSTANCE.Arrival_airport_code
+  2  [K  2  [K  2  SELECT SEAT_RESERVATION.Customer_name, SEAT_RESERVATION.Flight_number, LEG_INSTANCE.Departure_airport_code, LEG_INSSTANCE.Arrival_airport_code[A[C[C[C[C[CWHERE SEAT_RESERVATION.Flight_number = LEG_INSTANCE.Flight_number AND LEG_INSTANCE.Leg_number = SEAT_RESERVATION.Leg_number AND LEG_INSTANCE.Leg_number > ( SELECT MIN(Leg_number FROM LEG_INSTANCE);[A[C[C[C[C[CFROM SEAT_RESERVATION, LEG_INSTANCE[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[KFROM SEAT_RESERVATION, LEG_INSTANCE
+  3  [K  3  [K  3  FROM SEAT_RESERVATION, LEG_INSTANCE[C[C[C[C[CSELECT SEAT_RESERVATION.Customer_name, SEAT_RESERVATION.Flight_number, LEG_INSTANCE.Departure_airport_code, LEG_INSSTANCE.Arrival_airport_code[A[C[C[C[C[CWHERE SEAT_RESERVATION.Flight_number = LEG_INSTANCE.Flight_number AND LEG_INSTANCE.Leg_number = SEAT_RESERVATION.Leg_number AND LEG_INSTANCE.Leg_number > ( SELECT MIN(Leg_number FROM LEG_INSTANCE););[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P;[C[1@)[C[C[C[C[C[C[C[C[C[C[C[C[A[C[C[C[C[C[K
+[K[A[C[C[C[C[CWHERE SEAT_RESERVATION.Flight_number = LEG_INSTANCE.Flight_number AND LEG_INSTANCE.Leg_number = SEAT_RESERVATION.Leg_number AND LEG_INSTANCE.Leg_number > ( SELECT MIN(Leg_number) FROM LEG_INSTANCE);
+
+CUSTOMER_NAME	     FLIGH DEP ARRIV
+-------------------- ----- --- -----
+Mariane Mooer	     WJ250 YYZ YYC
+Tony Appa	     WJ250 YYZ YYC
+Karen Appa	     WJ250 YYZ YYC
+Mark Black	     AC275 YYZ YQG
+
+SQL> [KSQL> [KSQL> EIXT[K[K[K[Kexit[Kexit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+]0;bonato11@bravo: ~/315[01;32mbonato11@bravo[00m:[01;34m~/315[00m$ exit
+exit
+
+Script done on Sat 16 Nov 2019 08:36:10 PM EST

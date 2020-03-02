@@ -1,0 +1,51 @@
+Script started on Sat 16 Nov 2019 08:37:32 PM EST
+]0;bonato11@bravo: ~/315[01;32mbonato11@bravo[00m:[01;34m~/315[00m$ exitsqlplus bonato11
+[K
+SQL*Plus: Release 12.1.0.2.0 Production on Sat Nov 16 20:37:34 2019
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter password: [KEnter password: [K[KEnter password: [KEnter password: *[KEnter password: **[KEnter password: ***[KEnter password: **[KEnter password: *[KEnter password: [KEnter password: [KEnter password: *[KEnter password: **[KEnter password: ***[KEnter password: ****[KEnter password: *****[KEnter password: ******[KEnter password: *******[KEnter password: ********[KEnter password: *********[KEnter password: **********[KEnter password: ***********[KEnter password: ************[KEnter password: *************[KEnter password: *************[KEnter password: 
+[K
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> [KSQL> [KSQL> SELECT Cusomter[K[K[K[K[Ktomer_ba[K[Kname, FL[K;igh[K[K[K[Klight_number[C[C[C[C[C[KSELECT Customer_name, Flight_number
+  2  [K  2  [K  2  FROM SEAT_RESERVATION[C[C[C[C[C[KFROM SEAT_RESERVATION
+  3  [K  3  [K  3  WHERE EXISTS (SEKEC[K[K[KLECT LE[Keg_number FROM LEG_INSTANCE WHERE Lef[Kg_number = 2 AND Leg_number = SEAT_RESERVATION.lEG[K[K[KK[KLeg_num ber)[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[C[C[C[C;[A[K
+[K[A[C[C[C[C[CWHERE EXISTS (SELECT Leg_number FROM LEG_INSTANCE WHERE Leg_number = 2 AND Leg_number = SEAT_RESERVATION.Leg_number);
+
+CUSTOMER_NAME	     FLIGH
+-------------------- -----
+Mark Black	     AC275
+Karen Appa	     WJ250
+Tony Appa	     WJ250
+Mariane Mooer	     WJ250
+
+SQL> [KSQL> [KSQL> SELECT c[KCustomer_name, Flight_number[C[C[C[C[C[KSELECT Customer_name, Flight_number
+  2  [K  2  [K  2  FROM SEAT_RESERVATION[C[C[C[C[C[KFROM SEAT_RESERVATION
+  3  [K  3  [K  3  WHERE NOT EC[KXISTS (SELECT Leg_number FROM LEG_INSTANCE WHERE Leg_number = 2 ANF[KD Leg_number = SEAT_RESERVATION.lEG _NUMBER[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[KLeg _number)[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[C[C[C[C[C[C[C[C;[A[K
+[K[A[C[C[C[C[CWHERE NOT EXISTS (SELECT Leg_number FROM LEG_INSTANCE WHERE Leg_number = 2 AND Leg_number = SEAT_RESERVATION.Leg_number);
+
+CUSTOMER_NAME	     FLIGH
+-------------------- -----
+Chris Natta	     PA280
+Peter Opo	     PA233
+Mark Black	     AC275
+Karen Appa	     WJ250
+Tony Appa	     WJ250
+Mariane Mooer	     WJ250
+
+6 rows selected.
+
+SQL> [KSQL> [KSQL> ei[Kxit[Kexit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+]0;bonato11@bravo: ~/315[01;32mbonato11@bravo[00m:[01;34m~/315[00m$ xi[K[Kexit
+exit
+
+Script done on Sat 16 Nov 2019 08:41:13 PM EST
